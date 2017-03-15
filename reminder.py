@@ -54,6 +54,33 @@ def makeWindow():
         seconddrop.config(width=20)
         seconddrop.pack(side=LEFT, padx=10)
 
+        sounds = Frame(win)
+        sounds.pack(fill='both', expand='yes')
+        soundtext = Label(sounds, text='Select an alarm sound: ')
+        soundtext.pack()
+
+        soundlist = [
+                "Alarm Clock",
+                "Sunday Church",
+                "Rooster",
+                "Fog Horn",
+                "Cheer",
+                "Music Box"
+                ]
+        soundvar = StringVar(sounds)
+        soundvar.set(soundlist[0])
+        sounddrop = OptionMenu(sounds, soundvar, *soundlist)
+        sounddrop.config(width=15)
+        sounddrop.pack(side=LEFT, padx=10)
+
+        preview = Button(sounds, text="Preview")
+        preview.config(width=10)
+        preview.pack(side=LEFT, padx=10)
+        8
+        stop = Button(sounds, text="Stop", state=DISABLED)
+        stop.config(width=10)
+        stop.pack(side=LEFT, padx=10)
+
         return win
 
 win = makeWindow()
