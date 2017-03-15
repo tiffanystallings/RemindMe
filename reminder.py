@@ -1,6 +1,17 @@
 from tkinter import *
 
+def previewPressed():
+        preview.config(state=DISABLED)
+        stop.config(state="normal")
+
+def stopPressed():
+        preview.config(state="normal")
+        stop.config(state=DISABLED)
+
 def makeWindow():
+        global preview
+        global stop
+        
         win = Tk()
         win.wm_title("Remind Me")
 
@@ -73,15 +84,16 @@ def makeWindow():
         sounddrop.config(width=15)
         sounddrop.pack(side=LEFT, padx=10)
 
-        preview = Button(sounds, text="Preview")
+        preview = Button(sounds, text="Preview", command=previewPressed)
         preview.config(width=10)
         preview.pack(side=LEFT, padx=10)
         8
-        stop = Button(sounds, text="Stop", state=DISABLED)
+        stop = Button(sounds, text="Stop", state=DISABLED, command=stopPressed)
         stop.config(width=10)
         stop.pack(side=LEFT, padx=10)
 
         return win
+
 
 win = makeWindow()
 win.mainloop()
