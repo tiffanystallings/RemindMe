@@ -1,6 +1,10 @@
 from tkinter import *
 import pygame
 import time
+
+def main():
+        win = makeWindow()
+        win.mainloop()
                 
 def soundSelection():
         getsound = soundvar.get()
@@ -28,7 +32,7 @@ def previewPressed():
         preview.config(state=DISABLED)
         sounddrop.config(state=DISABLED)
         stop.config(state="normal")
-
+        
         soundSelection()
         pygame.mixer.music.play()
                         
@@ -129,5 +133,4 @@ def makeWindow():
 
         return win
 
-win = makeWindow()
-win.mainloop()
+main()
