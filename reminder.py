@@ -22,33 +22,29 @@ def soundSelection():
         else:
                 print("Error retrieving sound")
 
-        sound = pygame.mixer.Sound(soundfile)
-
-        return sound
+        return pygame.mixer.music.load(soundfile)
         
 def previewPressed():
         preview.config(state=DISABLED)
         sounddrop.config(state=DISABLED)
         stop.config(state="normal")
-        
-        soundSelection().play()
-        
-        time.sleep(soundSelection().get_length())
-        
-        
-                
+
+        soundSelection()
+        pygame.mixer.music.play()
+                        
 def stopPressed():
         preview.config(state="normal")
         sounddrop.config(state="normal")
         stop.config(state=DISABLED)
 
-        soundSelection().stop()
+        pygame.mixer.music.stop()
 
 def makeWindow():
         global preview
         global stop
         global soundvar
         global sounddrop
+        pygame.init()
         
         win = Tk()
         win.wm_title("Remind Me")
@@ -135,4 +131,3 @@ def makeWindow():
 
 win = makeWindow()
 win.mainloop()
-pygame.init()
