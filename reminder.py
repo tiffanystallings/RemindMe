@@ -1,16 +1,54 @@
 from tkinter import *
+import pygame
+import time
+                
+def soundSelection():
+        getsound = soundvar.get()
+        soundfile = ""
+        if getsound == "Alarm Clock":
+                soundfile = "alarmclock.wav"
+        elif getsound == "Sunday Church":
+                soundfile = "sundaychurch.wav"
+        elif getsound == "Rooster":
+                soundfile = "rooster.wav"
+        elif getsound == "Fog Horn":
+                soundfile = "foghorn.wav"
+        elif getsound == "Cheer":
+                soundfile = "cheer.wav"
+        elif getsound == "Door Chime":
+                soundfile = "doorchime.wav"
+        elif getsound == "Music Box":
+                soundfile = "musicbox.wav"
+        else:
+                print("Error retrieving sound")
 
+        sound = pygame.mixer.Sound(soundfile)
+
+        return sound
+        
 def previewPressed():
         preview.config(state=DISABLED)
+        sounddrop.config(state=DISABLED)
         stop.config(state="normal")
-
+        
+        soundSelection().play()
+        
+        time.sleep(soundSelection().get_length())
+        
+        
+                
 def stopPressed():
         preview.config(state="normal")
+        sounddrop.config(state="normal")
         stop.config(state=DISABLED)
+
+        soundSelection().stop()
 
 def makeWindow():
         global preview
         global stop
+        global soundvar
+        global sounddrop
         
         win = Tk()
         win.wm_title("Remind Me")
@@ -76,6 +114,7 @@ def makeWindow():
                 "Rooster",
                 "Fog Horn",
                 "Cheer",
+                "Door Chime",
                 "Music Box"
                 ]
         soundvar = StringVar(sounds)
@@ -94,6 +133,6 @@ def makeWindow():
 
         return win
 
-
 win = makeWindow()
 win.mainloop()
+pygame.init()
