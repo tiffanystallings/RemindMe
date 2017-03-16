@@ -1,6 +1,55 @@
 from tkinter import *
+import pygame
+import time
+
+def main():
+        win = makeWindow()
+        win.mainloop()
+                
+def soundSelection():
+        getsound = soundvar.get()
+        soundfile = ""
+        if getsound == "Alarm Clock":
+                soundfile = "alarmclock.wav"
+        elif getsound == "Sunday Church":
+                soundfile = "sundaychurch.wav"
+        elif getsound == "Rooster":
+                soundfile = "rooster.wav"
+        elif getsound == "Fog Horn":
+                soundfile = "foghorn.wav"
+        elif getsound == "Cheer":
+                soundfile = "cheer.wav"
+        elif getsound == "Door Chime":
+                soundfile = "doorchime.wav"
+        elif getsound == "Music Box":
+                soundfile = "musicbox.wav"
+        else:
+                print("Error retrieving sound")
+
+        return pygame.mixer.music.load(soundfile)
+        
+def previewPressed():
+        preview.config(state=DISABLED)
+        sounddrop.config(state=DISABLED)
+        stop.config(state="normal")
+        
+        soundSelection()
+        pygame.mixer.music.play()
+                        
+def stopPressed():
+        preview.config(state="normal")
+        sounddrop.config(state="normal")
+        stop.config(state=DISABLED)
+
+        pygame.mixer.music.stop()
 
 def makeWindow():
+        global preview
+        global stop
+        global soundvar
+        global sounddrop
+        pygame.init()
+        
         win = Tk()
         win.wm_title("Remind Me")
 
@@ -65,6 +114,7 @@ def makeWindow():
                 "Rooster",
                 "Fog Horn",
                 "Cheer",
+                "Door Chime",
                 "Music Box"
                 ]
         soundvar = StringVar(sounds)
@@ -73,15 +123,14 @@ def makeWindow():
         sounddrop.config(width=15)
         sounddrop.pack(side=LEFT, padx=10)
 
-        preview = Button(sounds, text="Preview")
+        preview = Button(sounds, text="Preview", command=previewPressed)
         preview.config(width=10)
         preview.pack(side=LEFT, padx=10)
         8
-        stop = Button(sounds, text="Stop", state=DISABLED)
+        stop = Button(sounds, text="Stop", state=DISABLED, command=stopPressed)
         stop.config(width=10)
         stop.pack(side=LEFT, padx=10)
 
         return win
 
-win = makeWindow()
-win.mainloop()
+main()
